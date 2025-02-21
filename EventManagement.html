@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrowdFlow - Event Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body class="event-management-page">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                SmartCrowd
+            </a>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./CrowdStatus.html">Live Crowd Status</a></li>
+                <li><a href="./EventManagement.html" class="active">Event Management</a></li>
+                <li><a href="./Alerts.html">Alerts</a></li>
+                <li><a href="./Pricing.html">Pricing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="breadcrumb">
+            <a href="/">Home</a> > Event Management
+        </div>
+        <div class="header-content">
+            <h1>Event Management Dashboard</h1>
+            <div class="event-status active">
+                <span class="status-dot"></span>
+                Event Active
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Event Overview Section -->
+        <section class="event-overview">
+            <div class="overview-grid">
+                <div class="overview-card event-details">
+                    <h2>Tech Conference 2025</h2>
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <span class="icon">📅</span>
+                            <span>Feb 21, 2025 - Feb 23, 2025</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="icon">📍</span>
+                            <span>Silicon Valley Convention Center</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="icon">👥</span>
+                            <span>3,500/5,000 Attendees</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="overview-card quick-stats">
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <h4>Current Occupancy</h4>
+                            <div class="stat-value">70%</div>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Entry Rate</h4>
+                            <div class="stat-value">45/min</div>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Exit Rate</h4>
+                            <div class="stat-value">30/min</div>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Active Alerts</h4>
+                            <div class="stat-value warning">3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring & Control Section -->
+        <section class="monitoring-section">
+            <div class="section-header">
+                <h2>Crowd Monitoring & Control</h2>
+                <div class="controls">
+                    <select id="zoneSelect">
+                        <option value="all">All Zones</option>
+                        <option value="entrance">Main Entrance</option>
+                        <option value="hall-a">Hall A</option>
+                        <option value="hall-b">Hall B</option>
+                        <option value="food-court">Food Court</option>
+                    </select>
+                    <button class="btn btn-primary">Export Data</button>
+                </div>
+            </div>
+            <div class="monitoring-grid">
+                <div class="map-container">
+                    <div id="venueMap" class="venue-map"></div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="color-dot high"></span> High Density
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot moderate"></span> Moderate
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot low"></span> Low Density
+                        </div>
+                    </div>
+                </div>
+                <div class="flow-analytics">
+                    <canvas id="flowChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Route Management Section -->
+        <section class="route-management">
+            <h2>Route & Navigation Management</h2>
+            <div class="route-grid">
+                <div class="route-card">
+                    <h3>Active Routes</h3>
+                    <div class="route-list">
+                        <div class="route-item">
+                            <div class="route-info">
+                                <h4>Main Entrance → Hall A</h4>
+                                <p>Current Load: 65%</p>
+                            </div>
+                            <button class="btn btn-outline">Modify</button>
+                        </div>
+                        <div class="route-item">
+                            <div class="route-info">
+                                <h4>Hall B → Food Court</h4>
+                                <p>Current Load: 45%</p>
+                            </div>
+                            <button class="btn btn-outline">Modify</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <h3>Emergency Exits</h3>
+                    <div class="exit-status">
+                        <div class="exit-item available">
+                            <span class="status-icon">✓</span>
+                            <span>Exit A (Main)</span>
+                        </div>
+                        <div class="exit-item available">
+                            <span class="status-icon">✓</span>
+                            <span>Exit B (West)</span>
+                        </div>
+                        <div class="exit-item blocked">
+                            <span class="status-icon">⚠️</span>
+                            <span>Exit C (East) - Temporarily Blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security & Alerts -->
+        <section class="security-section">
+            <div class="section-header">
+                <h2>Security & Alerts</h2>
+                <button class="btn btn-danger">Broadcast Alert</button>
+            </div>
+            <div class="security-grid">
+                <div class="alerts-panel">
+                    <div class="alert critical">
+                        <span class="alert-icon">🚨</span>
+                        <div class="alert-content">
+                            <h4>Overcrowding Alert</h4>
+                            <p>Hall A reaching capacity (90%). Redirect flow to Hall B.</p>
+                            <span class="timestamp">2 mins ago</span>
+                        </div>
+                        <button class="btn btn-danger">Respond</button>
+                    </div>
+                    <div class="alert warning">
+                        <span class="alert-icon">⚠️</span>
+                        <div class="alert-content">
+                            <h4>Queue Alert</h4>
+                            <p>Food Court queue exceeding 15 minutes.</p>
+                            <span class="timestamp">5 mins ago</span>
+                        </div>
+                        <button class="btn btn-warning">Monitor</button>
+                    </div>
+                </div>
+                <div class="security-feed">
+                    <h3>AI Security Feed</h3>
+                    <div class="feed-list">
+                        <div class="feed-item">
+                            <span class="time">12:20</span>
+                            <span class="message">Unusual gathering detected near Exit B</span>
+                        </div>
+                        <div class="feed-item">
+                            <span class="time">12:15</span>
+                            <span class="message">Flow pattern anomaly in Hall A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Staff Controls -->
+        <section class="staff-section">
+            <h2>Staff & Communication</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <h3>Active Staff</h3>
+                    <div class="staff-list">
+                        <div class="staff-item online">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe" alt="John D." class="staff-avatar">
+                            <div class="staff-info">
+                                <h4>John Doe</h4>
+                                <p>Security Lead - Hall A</p>
+                            </div>
+                            <button class="btn btn-outline">Contact</button>
+                        </div>
+                        <div class="staff-item online">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Smith" alt="Sarah S." class="staff-avatar">
+                            <div class="staff-info">
+                                <h4>Sarah Smith</h4>
+                                <p>Entry Coordinator</p>
+                            </div>
+                            <button class="btn btn-outline">Contact</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <h3>Quick Tasks</h3>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <input type="checkbox" id="task1">
+                            <label for="task1">Check Exit C blockage</label>
+                            <span class="priority high">High</span>
+                        </div>
+                        <div class="task-item">
+                            <input type="checkbox" id="task2">
+                            <label for="task2">Monitor Food Court queue</label>
+                            <span class="priority medium">Medium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Dashboard -->
+        <section class="analytics-section">
+            <div class="section-header">
+                <h2>Analytics & Insights</h2>
+                <div class="time-filter">
+                    <button class="btn btn-outline active">1H</button>
+                    <button class="btn btn-outline">4H</button>
+                    <button class="btn btn-outline">1D</button>
+                </div>
+            </div>
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <h3>Footfall Trends</h3>
+                    <canvas id="footfallChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Zone Occupancy</h3>
+                    <canvas id="occupancyChart"></canvas>
+                </div>
+                <div class="predictions-card">
+                    <h3>AI Predictions</h3>
+                    <div class="prediction-list">
+                        <div class="prediction-item">
+                            <span class="icon">📈</span>
+                            <div class="prediction-content">
+                                <h4>Peak Time Expected</h4>
+                                <p>14:30 - 15:30 (80% confidence)</p>
+                            </div>
+                        </div>
+                        <div class="prediction-item">
+                            <span class="icon">⚡</span>
+                            <div class="prediction-content">
+                                <h4>Potential Bottleneck</h4>
+                                <p>Hall A entrance in ~45 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Charts
+        const ctx = document.getElementById('footfallChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '11:00', '12:00', '13:00'],
+                datasets: [{
+                    label: 'Visitors per Hour',
+                    data: [250, 450, 350, 550],
+                    borderColor: 'rgb(59, 130, 246)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Initialize Map
+        const venueMap = L.map('venueMap').setView([51.505, -0.09], 17);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(venueMap);
+    </script>
+</body>
+</html>

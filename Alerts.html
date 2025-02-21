@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrowdFlow - Alerts & Notifications</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="alerts-page">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                SmartCrowd
+            </a>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./CrowdStatus.html">Live Crowd Status</a></li>
+                <li><a href="./EventManagement.html" class="active">Event Management</a></li>
+                <li><a href="./Alerts.html">Alerts</a></li>
+                <li><a href="./Pricing.html">Pricing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="breadcrumb">
+            <a href="/">Home</a> > Alerts & Notifications
+        </div>
+        <div class="header-content">
+            <h1>Alert Management Center</h1>
+            <div class="header-actions">
+                <button class="btn btn-outline">Configure Alerts</button>
+                <button class="btn btn-primary">Create Alert</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Alert Overview -->
+        <section class="alert-overview">
+            <div class="alert-stats">
+                <div class="stat-card critical">
+                    <div class="stat-icon">🚨</div>
+                    <div class="stat-content">
+                        <h3>Critical</h3>
+                        <div class="stat-value">3</div>
+                        <div class="stat-trend up">+2 from yesterday</div>
+                    </div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3>Warnings</h3>
+                        <div class="stat-value">7</div>
+                        <div class="stat-trend down">-3 from yesterday</div>
+                    </div>
+                </div>
+                <div class="stat-card info">
+                    <div class="stat-icon">ℹ️</div>
+                    <div class="stat-content">
+                        <h3>Notifications</h3>
+                        <div class="stat-value">12</div>
+                        <div class="stat-trend">Same as yesterday</div>
+                    </div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3>Resolved</h3>
+                        <div class="stat-value">28</div>
+                        <div class="stat-trend up">+5 from yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Alerts -->
+        <section class="active-alerts">
+            <div class="section-header">
+                <h2>Active Alerts</h2>
+                <div class="filter-controls">
+                    <select class="alert-type-filter">
+                        <option value="all">All Types</option>
+                        <option value="critical">Critical</option>
+                        <option value="warning">Warning</option>
+                        <option value="info">Info</option>
+                    </select>
+                    <select class="event-filter">
+                        <option value="all">All Events</option>
+                        <option value="tech-conf">Tech Conference 2025</option>
+                        <option value="music-fest">Summer Music Festival</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="alerts-list">
+                <div class="alert-item critical">
+                    <div class="alert-header">
+                        <span class="alert-type">Critical</span>
+                        <span class="alert-time">10 minutes ago</span>
+                    </div>
+                    <div class="alert-content">
+                        <h4>Overcrowding Detected</h4>
+                        <p>Hall A at Tech Conference has reached 95% capacity. Immediate action required.</p>
+                        <div class="alert-meta">
+                            <span class="event">Tech Conference 2025</span>
+                            <span class="location">Hall A</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-danger">Take Action</button>
+                    </div>
+                </div>
+
+                <div class="alert-item warning">
+                    <div class="alert-header">
+                        <span class="alert-type">Warning</span>
+                        <span class="alert-time">25 minutes ago</span>
+                    </div>
+                    <div class="alert-content">
+                        <h4>Queue Time Alert</h4>
+                        <p>Food Court queue times exceeding 20 minutes. Consider opening additional service points.</p>
+                        <div class="alert-meta">
+                            <span class="event">Tech Conference 2025</span>
+                            <span class="location">Food Court</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-warning">Monitor</button>
+                    </div>
+                </div>
+
+                <div class="alert-item info">
+                    <div class="alert-header">
+                        <span class="alert-type">Info</span>
+                        <span class="alert-time">1 hour ago</span>
+                    </div>
+                    <div class="alert-content">
+                        <h4>Weather Update</h4>
+                        <p>Light rain expected in 2 hours. Prepare indoor alternatives for outdoor activities.</p>
+                        <div class="alert-meta">
+                            <span class="event">Summer Music Festival</span>
+                            <span class="location">All Zones</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="btn btn-outline">View Details</button>
+                        <button class="btn btn-primary">Acknowledge</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alert Analytics -->
+        <section class="alert-analytics">
+            <div class="section-header">
+                <h2>Alert Analytics</h2>
+                <div class="time-filter">
+                    <button class="btn btn-outline active">24H</button>
+                    <button class="btn btn-outline">7D</button>
+                    <button class="btn btn-outline">30D</button>
+                </div>
+            </div>
+            <div class="analytics-grid">
+                <div class="chart-card">
+                    <h3>Alert Frequency</h3>
+                    <canvas id="alertFrequencyChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Response Times</h3>
+                    <canvas id="responseTimeChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alert Settings -->
+        <section class="alert-settings">
+            <h2>Quick Settings</h2>
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>Notification Preferences</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <label>Email Notifications</label>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>SMS Alerts</label>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Push Notifications</label>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <h3>Alert Thresholds</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <label>Crowd Density</label>
+                            <select>
+                                <option>85%</option>
+                                <option>90%</option>
+                                <option>95%</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>Queue Time</label>
+                            <select>
+                                <option>15 min</option>
+                                <option>20 min</option>
+                                <option>30 min</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize Charts
+        const frequencyCtx = document.getElementById('alertFrequencyChart').getContext('2d');
+        new Chart(frequencyCtx, {
+            type: 'line',
+            data: {
+                labels: ['00:00', '06:00', '12:00', '18:00', '24:00'],
+                datasets: [{
+                    label: 'Critical',
+                    data: [2, 1, 3, 5, 2],
+                    borderColor: '#ef4444',
+                    tension: 0.4
+                }, {
+                    label: 'Warning',
+                    data: [5, 3, 7, 4, 6],
+                    borderColor: '#f59e0b',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        const responseCtx = document.getElementById('responseTimeChart').getContext('2d');
+        new Chart(responseCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Critical', 'Warning', 'Info'],
+                datasets: [{
+                    label: 'Average Response Time (minutes)',
+                    data: [5, 15, 30],
+                    backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

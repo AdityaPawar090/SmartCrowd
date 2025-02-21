@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrowdFlow - Live Crowd Status</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body class="crowd-status-page">
+    <!-- Navigation Bar (reused from index.html) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                SmartCrowd
+            </a>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./CrowdStatus.html">Live Crowd Status</a></li>
+                <li><a href="./EventManagement.html" class="active">Event Management</a></li>
+                <li><a href="./Alerts.html">Alerts</a></li>
+                <li><a href="./Pricing.html">Pricing</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="breadcrumb">
+            <a href="/">Home</a> > Live Crowd Status
+        </div>
+        <div class="header-content">
+            <h1>Live Crowd Status & Analytics</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search location, event, or zone...">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Live Map Section -->
+        <section class="map-section">
+            <div class="section-header">
+                <h2>Live Crowd Density Map</h2>
+                <div class="map-controls">
+                    <select id="viewType">
+                        <option value="heatmap">Heatmap View</option>
+                        <option value="3d">3D View</option>
+                    </select>
+                    <select id="zoneFilter">
+                        <option value="all">All Zones</option>
+                        <option value="entrance">Entrance</option>
+                        <option value="main">Main Area</option>
+                        <option value="vip">VIP Section</option>
+                        <option value="exit">Exit Gates</option>
+                    </select>
+                </div>
+            </div>
+            <div id="crowdMap" class="crowd-map"></div>
+            <div class="map-legend">
+                <div class="legend-item">
+                    <span class="color-dot high"></span> High Density
+                </div>
+                <div class="legend-item">
+                    <span class="color-dot moderate"></span> Moderate
+                </div>
+                <div class="legend-item">
+                    <span class="color-dot low"></span> Low Density
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Dashboard -->
+        <section class="analytics-section">
+            <div class="analytics-grid">
+                <div class="analytics-card total-count">
+                    <h3>Current Occupancy</h3>
+                    <div class="count-display">
+                        <span class="current">3,500</span>
+                        <span class="capacity">/5,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%"></div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card density">
+                    <h3>Zone Density</h3>
+                    <div class="zone-list">
+                        <div class="zone-item">
+                            <span>Zone A</span>
+                            <div class="zone-progress">
+                                <div class="progress" style="width: 80%"></div>
+                            </div>
+                            <span>80%</span>
+                        </div>
+                        <div class="zone-item">
+                            <span>Zone B</span>
+                            <div class="zone-progress">
+                                <div class="progress" style="width: 50%"></div>
+                            </div>
+                            <span>50%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-card wait-times">
+                    <h3>Average Wait Times</h3>
+                    <div class="wait-list">
+                        <div class="wait-item">
+                            <span>Entry Gate</span>
+                            <span class="time">15 min</span>
+                        </div>
+                        <div class="wait-item">
+                            <span>Food Court</span>
+                            <span class="time">20 min</span>
+                        </div>
+                        <div class="wait-item">
+                            <span>Restrooms</span>
+                            <span class="time">5 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Section -->
+        <section class="alerts-section">
+            <h2>Live Alerts & Warnings</h2>
+            <div class="alerts-container">
+                <div class="alert critical">
+                    <span class="alert-icon">🚨</span>
+                    <div class="alert-content">
+                        <h4>Critical Alert</h4>
+                        <p>Zone C is reaching maximum capacity (95%). Please redirect visitors.</p>
+                    </div>
+                    <button class="btn btn-danger">Take Action</button>
+                </div>
+                <div class="alert warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <h4>Warning</h4>
+                        <p>Food Court queue exceeding normal wait times (20+ minutes)</p>
+                    </div>
+                    <button class="btn btn-warning">Monitor</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Navigation -->
+        <section class="navigation-section">
+            <h2>Smart Crowd Navigation</h2>
+            <div class="navigation-grid">
+                <div class="nav-card">
+                    <span class="nav-icon">📍</span>
+                    <h3>Best Route</h3>
+                    <p>Calculate least crowded path to your destination</p>
+                    <button class="btn btn-primary">Plan Route</button>
+                </div>
+                <div class="nav-card">
+                    <span class="nav-icon">🚪</span>
+                    <h3>Nearest Exit</h3>
+                    <p>Find quickest exit route from your location</p>
+                    <button class="btn btn-primary">Find Exit</button>
+                </div>
+                <div class="nav-card">
+                    <span class="nav-icon">🛑</span>
+                    <h3>Restricted Areas</h3>
+                    <p>View current access restrictions and blocked zones</p>
+                    <button class="btn btn-primary">View Zones</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Initialize the map
+        const map = L.map('crowdMap').setView([51.505, -0.09], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Simulate crowd density heatmap data
+        const points = [
+            [51.505, -0.09, 0.8],
+            [51.506, -0.091, 0.6],
+            [51.507, -0.092, 0.3]
+        ];
+
+        // Add heatmap layer (you would need to include the heatmap.js plugin)
+        // This is a placeholder for the actual heatmap implementation
+    </script>
+</body>
+</html>
