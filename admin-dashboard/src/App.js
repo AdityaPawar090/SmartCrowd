@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -27,14 +28,14 @@ function App() {
     e.preventDefault();
     await axios.post('http://localhost:5000/events', formData);
     setFormData({ name: '', location: '', date: '', crowdCount: '' });
-    fetchEvents(); // reload events
+    fetchEvents();
   };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>SmartCrowd: Event Manager Dashboard</h1>
+    <div className="container">
+      <h1>🎯 SmartCrowd Organizer Dashboard</h1>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
+      <form className="event-form" onSubmit={handleSubmit}>
         <input name="name" placeholder="Event Name" value={formData.name} onChange={handleChange} required />
         <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
         <input name="date" type="date" value={formData.date} onChange={handleChange} required />
@@ -42,18 +43,21 @@ function App() {
         <button type="submit">Add Event</button>
       </form>
 
-      <h2>Live Events:</h2>
-      {events.length === 0 ? (
-        <p>No events added yet.</p>
-      ) : (
-        <ul>
-          {events.map((e, index) => (
-            <li key={index}>
-              <strong>{e.name}</strong> – {e.location} – {new Date(e.date).toLocaleDateString()} – Crowd: {e.crowdCount}
-            </li>
-          ))}
-        </ul>
-      )}
+      <h2>📅 Upcoming Events</h2>
+      <div className="event-list">
+        {events.length === 0 ? (
+          <p>No events added yet.</p>
+        ) : (
+          events.map((e, i) => (
+            <div className="event-card" key={i}>
+              <h3>{e.name}</h3>
+              <p>📍 {e.location}</p>
+              <p>📆 {new Date(e.date).toLocaleDateString()}</p>
+              <p>👥 Crowd: {e.crowdCount}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
